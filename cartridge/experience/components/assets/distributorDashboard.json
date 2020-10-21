@@ -1,0 +1,20 @@
+{
+    "name": "Distributor Dashboard",
+    "description": "Dashboard showing commission information for a logged in distributor.",
+    "group": "Components",
+    "attribute_definition_groups": [
+        {
+            "id": "content",
+            "name": "Content",
+            "attribute_definitions": [
+                {
+                    "id": "dashboardTitle",
+                    "name": "Dashboard Title",
+                    "type": "text",
+                    "required": true
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}

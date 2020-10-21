@@ -1,0 +1,297 @@
+
+<iscomment> <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> </iscomment>
+<link rel="stylesheet" href="//www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css">
+
+<link rel="stylesheet" href="${URLUtils.staticURL('/css/jquery-ui.css')}">
+<link rel="stylesheet" href="${URLUtils.staticURL('/css/jquery-ui.structure.css')}">
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="*/cartridge/scripts/jquery-ui.js"></script>
+<script src="*/cartridge/scripts/jquery-ui.structure.js"></script>
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.13.0/js/fuelux.min.js"></script>
+
+<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+
+<script defer type="text/javascript" src="${URLUtils.staticURL('/js/jquery-ui.structure.js')}"></script>
+<script defer type="text/javascript" src="${URLUtils.staticURL('/js/jquery-ui.js')}"></script>
+
+
+
+<style>
+
+    .fuelux .wizard > ul.steps li.active, .fuelux .wizard > .steps-container > ul.steps li.active {
+        background: ${pdict.wizard.colorAlternate};
+        color: ${pdict.wizard.colorPrimary};
+        cursor: default
+    }
+
+    .fuelux .wizard > ul.steps li.active .chevron:before, .fuelux .wizard > .steps-container > ul.steps li.active .chevron:before {
+        border-left: 14px solid ${pdict.wizard.colorAlternate}
+    }
+
+    .fuelux .wizard > ul.steps li.active .badge, .fuelux .wizard > .steps-container > ul.steps li.active .badge {
+        background-color: ${pdict.wizard.colorAlternate}
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: ${pdict.wizard.colorAlternate};
+        border-color: #097fb3;
+    }
+
+</style>
+
+
+
+        <!----------------------------------------------------------------------------------->
+        <!-- BEGIN: "Do it for me" section for Lumber Liquidators demo -->
+        <!----------------------------------------------------------------------------------->
+        <!-- Step 1.5: DO IT FOR ME DIY customer -->
+
+
+
+<isscript>
+
+    //id to represent the row number on the form
+    //var urlParams = '?cgid=' + pdict.wizard.category.ID + '&';
+
+</isscript>
+
+<div class="mx-auto" style="width: 1000px;">
+
+        <div class="card diy-summary" id="mainWizardContent">
+            <div class="card-header clearfix">
+                <h4 class="pull-left">${pdict.wizard.title}</h4>
+                <iscomment> <span class="edit-button pull-right">${Resource.msg('action.edit.step', 'checkout', null)}</span> </iscomment>
+            </div>
+
+            <div class="card-body">
+
+                <div class="step-content" id="status" style="height: 380px; display: none">
+                    <center> <h3>Finding Products...</h3><br><p></p>
+                        <div class="loader"></div>
+                    </center>
+                </div>
+
+
+
+                <iscomment> BEGIN WIZARD </iscomment>
+                <div class="fuelux" id="mainWizard">
+                    <div class="wizard" data-initialize="wizard" id="myWizard">
+                        <div class="steps-container">
+                            <ul class="steps">
+
+
+                                <iscomment> ######## WIZARD PAGES #############</iscomment>
+
+                                <isloop items="${pdict.wizard.pages}" alias = "wPage" status="status">
+                                    <li data-step="${status.count}" data-name="step${status.count}" class="active" style="${(pdict.wizard.showSteps === false ? 'display:none' : '')}">
+                                        ${wPage.pageTitle}
+                                        <span class="chevron"></span>
+                                    </li>
+                                </isloop>
+
+
+                            </ul>
+                        </div>
+                        <div class="actions" style="${(pdict.wizard.showSteps === false ? 'display:none' : '')}">
+                            <button type="button" class="btn btn-default btn-prev">
+                                <span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+                            <button type="button" id="next" class="btn btn-primary btn-next" data-last="Complete">Next
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                            </button>
+                        </div>
+
+
+                        <div class="step-content" id="steps" style="height: 380px">
+
+
+                            <isloop items="${pdict.wizard.pages}" alias = "wPage2" status="status2">
+                                <div class="step-pane active sample-pane alert" data-step="${status2.count}">
+
+                                    <div class="row text-center" style="justify-content:center;">
+                                        <h2>${wPage2.pageQuestion}</h2>
+                                    </div>
+
+                                    <div class="row">
+<br><p><br></p>
+                                    </div>
+
+
+                                    <div class="row" style="justify-content:center;">
+
+                                            <isloop items="${wPage2.answers}" alias="answer" status="answerStatus">
+
+                                                <isif condition="${!empty(answer.answerText)}">
+                                                    <div class="card answer text-center border border-light"
+                                                         data-filter="${answer.filter}"
+                                                         data-attributename="${wPage2.pageAttribute}"
+                                                         style="width: 15rem;background-color: ${pdict.wizard.colorPrimary}">
+                                                        <div class="card-body">
+                                                            <i class="far fa-${answer.icon}"></i><h5 class="card-title" >${answer.answerText}</h5>
+                                                        </div>
+                                                    </div>
+                                                </isif>
+
+                                            </isloop>
+
+                                        <p><br></p>
+
+
+
+                                 </div>
+
+
+                                    </p>
+                                </div>
+                            </isloop>
+
+                        </div>
+                    </div>
+                </div>
+                <iscomment> END WIZARD </iscomment>
+
+
+
+            </div>
+        </div>
+
+
+
+
+    <div id="results" style="display:none">
+        <h1>results here.... </h1>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" language="javascript">
+
+    $(document).ready(function() {
+
+
+
+    });
+
+    var url = '?cgid=${pdict.wizard.category.ID}';
+    var attributeValueList = [];
+    var attributeName = '';
+    var attributeIndex = 1;
+    var separator = '%7c';
+
+    $('.answer').on('click', function () {
+        var isSelected = $(this).hasClass("border-primary");
+        var filterValue = $(this).data('filter');
+
+        if(isSelected){
+
+            /**
+             * Okay, what this small piece of code does is not that if an answer
+             * is DE-selected, then also remove it from the attribute value array
+             */
+            for(let i = 0; i < attributeValueList.length; i++){
+                if(attributeValueList[i] === filterValue){
+                    attributeValueList.splice(i,1);  // remove it
+                }
+            }
+
+            $(this).removeClass('border-primary');
+            $(this).addClass('border-light');
+        } else {
+            // An answer has been selected so lets add this value to
+            //alert($(this).data('attributename'));
+
+            attributeValueList.push(filterValue);
+            attributeName = $(this).data('attributename')
+
+            $(this).removeClass('border-light');
+            $(this).addClass('border-primary');
+        }
+
+    })
+
+    $('.btn-prev').on('click', function() {
+        console.log('prev');
+    });
+
+    $('.btn-next').on('click', function(e, data) {
+
+        // var name = $(this).data('last');
+        var buttonText = $("#next").text();
+
+        /**
+         * Build attribute URL for this particular page, then clear the values.
+         */
+        url = url + '&prefn' + attributeIndex + '=' + attributeName + '&prefv' + attributeIndex + '=';
+        attributeIndex++;
+        for(let i = 0; i < attributeValueList.length; i++){
+            url = url + attributeValueList[i];
+
+            // Is this the last one?  If not, add a funky symbol to append for the next one.
+            if(i === (attributeValueList.length - 1)){
+                // do nothing
+            }else {
+                url = url + separator;
+            }
+        }
+        attributeValueList = [];
+        // alert("name:" + attributeName + "values: " + attributeValueList);
+        console.log("URL:" + url);
+
+        //alert(url);
+
+
+
+        // COMPLETE - build the URL.
+        if(buttonText === 'Complete'){
+
+            //$("#mainWizardContent").hide();
+            $("#mainWizard").hide();
+            $("#status").show().delay(500).queue( function (n) {
+                // men-tops?cgid=men-tops&prefn1=activity&prefv1=City%7cClimbing&prefn2=apparelFeatures&prefv2=Breathable%7cHooded&prefn3=refinementColor&prefv3=Blue&prefn4=size&prefv4=L
+                // var url = "${URLUtils.url('Search-Show', 'cgid', pdict.wizard.category.ID)}";
+                var baseURL = "${URLUtils.abs('Search-Show')}";
+                window.location.href = baseURL + url;
+            });
+
+        }
+
+    });
+
+    $(document).ajaxError(function () {
+        alert("an error occured!!");
+    })
+
+</script>
+
+
+
+
+

@@ -1,0 +1,32 @@
+{
+    "name": "Promo Banner",
+    "description": "Promotion banner to be used standalone or in a campaign.",
+    "group": "Components",
+    "attribute_definition_groups": [
+        {
+            "id": "content",
+            "name": "Content",
+            "attribute_definitions": [
+                {
+                    "id": "ribbonText",
+                    "name": "Ribbon Text",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "topText",
+                    "name": "Top Text",
+                    "type": "text",
+                    "required": true
+                },
+                {
+                    "id": "bottomText",
+                    "name": "Bottom Text",
+                    "type": "text",
+                    "required": true
+                }
+            ]
+        }
+    ],
+    "region_definitions": []
+}

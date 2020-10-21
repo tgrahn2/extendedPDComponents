@@ -1,0 +1,13 @@
+
+    <isscript>
+        var assets = require('/css/homePage2.css');
+    </isscript>
+
+    yellow2 whatever..
+
+    <isprint value="${pdict.html}" encoding="off"/>
+
+
+
+
+
